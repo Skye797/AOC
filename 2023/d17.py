@@ -35,32 +35,6 @@ posTurns = {N:[E,W], E:[S,N], S:[E,W], W:[N,S]}
 #point => (i,j,runlength,direction)
 # (i,j,k,d) => (i+a,j+b,k+1,d) weighting inp[i][j]
 # => (i+a,j+b,0,!d) weighting inp[i][j]
-'''
-edges = []
-for i in range(len(inp)):
-    for j in range(len(inp[0])):
-        for d in range(4):
-            newi,newj = dic[d](i,j)
-            if 0 <= newi < len(inp) and 0 <= newj < len(inp[0]):
-                for r in range(0,2):
-                    edges.append((((i,j),r,d), ((newi,newj),r+1,d), inp[newi][newj]))
-            for d_ in posTurns[d]:
-                newi,newj = dic[d_](i,j)
-                if 0 <= newi < len(inp) and 0 <= newj < len(inp[0]):
-                    for r in range(0,3):
-                        edges.append((((i,j),r,d), ((newi,newj),0,d_), inp[newi][newj]))
-for d in range(4):
-    edges.append(("start",((0,0),0,d), 0))
-    for r in range(3):
-        edges.append((((len(inp)-1,len(inp[0])-1), r, d), "end", 0))
-g = gratheory.Graph(edges,oneWayEdges=True)
-s = g.findShortestPath("start","end")
-a = [[" " for i in j] for j in inp]
-for i in s[0][1:-1]:
-    a[i[0][0]][i[0][1]] = "X"
-print("\n".join(["".join(i) for i in a]))
-print(s[1])
-'''
 
 def doPass():
     c = 0 
@@ -133,33 +107,6 @@ best = [[[[gratheory.inf() for _ in range(4)] for a in range(10)] for i in range
 best[0][1][0][E] = inp[0][1]
 best[1][0][0][S] = inp[1][0]
 posTurns = {N:[E,W], E:[S,N], S:[E,W], W:[N,S]}
-
-'''
-edges = []
-for i in range(len(inp)):
-    for j in range(len(inp[0])):
-        for d in range(4):
-            newi,newj = dic[d](i,j)
-            if 0 <= newi < len(inp) and 0 <= newj < len(inp[0]):
-                for r in range(0,10):
-                    edges.append((((i,j),r,d), ((newi,newj),r+1,d), inp[newi][newj]))
-            for d_ in posTurns[d]:
-                newi,newj = dic[d_](i,j)
-                if 0 <= newi < len(inp) and 0 <= newj < len(inp[0]):
-                    for r in range(3,11):
-                        edges.append((((i,j),r,d), ((newi,newj),0,d_), inp[newi][newj]))
-for d in range(4):
-    edges.append(("start",((0,0),0,d), 0))
-    for r in range(11):
-        edges.append((((len(inp)-1,len(inp[0])-1), r, d), "end", 0))
-g = gratheory.Graph(edges,oneWayEdges=True)
-s = g.findShortestPath("start","end")
-a = [[" " for i in j] for j in inp]
-for i in s[0][1:-1]:
-    a[i[0][0]][i[0][1]] = "X"
-print("\n".join(["".join(i) for i in a]))
-print(s[1])
-'''
 
 def doPass_():
     c = 0 
